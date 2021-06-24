@@ -3,25 +3,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Blog extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
 	public function index()
 	{
-		$this->load->view('adminpanel/viewBlog');
+        $sql="SELECT * FROM `articles` ORDER BY blogid DESC ";
+        $query= $this->db->query($sql);
+        $data['result']= $query->result_array();
+		$this->load->view('adminpanel/viewBlog',$data);
 	}
+
 
     function addBlog(){
         $this->load->view('adminpanel/addBlog');
@@ -74,6 +63,31 @@ class Blog extends CI_Controller {
 
         }else{
 
+        }
+
+    }
+
+    
+
+    function editBlog($blog_id){
+        print_r($blog_id);
+     
+
+    }
+
+
+    function deleteBlog(){
+        
+        // print_r($_POST);
+        $delete_id=$_POST['delete_id'];
+
+       $qu= $this->db->query("DELETE FROM `articles` WHERE `blogid` ='$delete_id'");
+
+        if($qu){
+            echo "deleted";
+        }
+        else{
+            echo "not deleted";
         }
 
     }

@@ -1,0 +1,55 @@
+<?php
+
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+
+class Post_model extends CI_Model{
+    
+
+
+    function showPostData(){
+        $data=$this->db->get('articles');
+        // $data=$this->db->query("SELECT * FROM posts ORDER BY id DESC");
+        return $data;
+        // print_r($data->result_array());
+        // // echo'hi';
+        // die();
+    }
+
+    function deletePostData($id){
+
+        $data=$this->db->where("id",$id);
+        $data=$this->db->delete("posts");
+        return $data;
+       
+    }
+
+    function getEditPostData($id){
+        $data=$this->db->where("id",$id);
+        $data=$this->db->get("posts");
+        return $data;
+    }
+
+    function insertEditPostData(){
+
+        $data=array(
+
+            'title'=>$this->input->post('title',TRUE),
+            'description'=>$this->input->post('description',TRUE),
+            'catergory'=>$this->input->post('catergory',TRUE),
+            'id'=>$this->input->post('id',TRUE)
+
+      );
+
+    //   print_r($data['id']);
+    //   die();
+
+    
+                 $this->db->where("id",$data['id']);
+                $response=$this->db->update("posts", $data);
+                return $response;
+                
+    }
+ 
+}
+?>

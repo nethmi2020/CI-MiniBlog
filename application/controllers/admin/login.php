@@ -39,6 +39,7 @@ class Login extends CI_Controller {
 
     function login_post(){
         // echo 'ji';
+        // admin 123
      
       if(isset($_POST)){
 
